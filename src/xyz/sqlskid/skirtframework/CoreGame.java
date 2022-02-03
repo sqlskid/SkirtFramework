@@ -88,8 +88,6 @@ public class CoreGame implements KeyListener, MouseListener, MouseMotionListener
     public void render(Graphics2D graphics){}
     public void update() {}
 
-    private long oldTime, currentTime;
-
     private void fixedUpdate() {
         update();
     }
