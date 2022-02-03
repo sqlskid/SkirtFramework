@@ -51,7 +51,7 @@ public class CoreGame implements KeyListener, MouseListener, MouseMotionListener
 
     public void run(){
         display = new Display(title,width,height,scale);
-        display.getFrame().addKeyListener(this);
+        display.getCanvas().addKeyListener(this);
         display.getCanvas().addMouseListener(this);
         display.getCanvas().addMouseMotionListener(this);
 
@@ -85,12 +85,12 @@ public class CoreGame implements KeyListener, MouseListener, MouseMotionListener
         }
     }
 
-
-
     public void render(Graphics2D graphics){}
     public void update() {}
 
-    private void fixedUpdate(){
+    private long oldTime, currentTime;
+
+    private void fixedUpdate() {
         update();
     }
 
