@@ -12,17 +12,15 @@ import java.util.List;
 public class CoreGame implements KeyListener, MouseListener, MouseMotionListener
 {
     private int tickrate;
-
     private String title;
     private int width;
     private int height;
     private int scale;
-
-    private boolean running = false;
-
     private Thread gameThread;
 
     private List<InputListener> inputListenerList = new ArrayList<>();
+
+    private boolean running = false;
 
     private int currentFramerate;
     private int currentTickrate;

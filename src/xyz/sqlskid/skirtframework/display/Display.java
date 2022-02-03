@@ -9,15 +9,17 @@ public class Display {
     public Canvas canvas;
 
     private String title;
-    private int width;
-    private int height;
-    private int scale;
 
     public Display(String title,int width, int height, int scale){
         this.title = title;
-        this.width = width;
-        this.height = height;
-        this.scale = scale;
+
+        resizeDisplay(width,height,scale);
+    }
+
+    public void resizeDisplay(int width, int height, int scale){
+        if(jFrame != null){
+            jFrame.dispose();
+        }
 
         this.jFrame = new JFrame(title);
         this.jFrame.setSize(new Dimension(width * scale, height * scale));
@@ -57,15 +59,4 @@ public class Display {
         return canvas;
     }
 
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public int getScale() {
-        return scale;
-    }
 }
