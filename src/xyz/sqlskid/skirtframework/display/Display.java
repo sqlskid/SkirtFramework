@@ -10,14 +10,14 @@ public class Display {
 
     private String title;
 
-    public Display(String title,int width, int height, int scale){
+    public Display(String title, int width, int height, int scale) {
         this.title = title;
 
-        resizeDisplay(width,height,scale);
+        resizeDisplay(width, height, scale);
     }
 
-    public void resizeDisplay(int width, int height, int scale){
-        if(jFrame != null){
+    public void resizeDisplay(int width, int height, int scale) {
+        if (jFrame != null) {
             jFrame.dispose();
         }
 
@@ -29,6 +29,7 @@ public class Display {
         this.jFrame.setLayout(null);
         this.jFrame.setLocationRelativeTo(null);
         this.jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        this.jFrame.setResizable(false);
 
         this.canvas = new Canvas();
         this.canvas.setSize(new Dimension(width * scale, height * scale));

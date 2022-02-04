@@ -9,27 +9,20 @@ import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CoreGame implements KeyListener, MouseListener, MouseMotionListener
-{
+public class CoreGame implements KeyListener, MouseListener, MouseMotionListener {
+    public Display display;
     private int tickrate;
     private String title;
     private int width;
     private int height;
     private int scale;
     private Thread gameThread;
-
     private List<InputListener> inputListenerList = new ArrayList<>();
-
     private boolean running = false;
-
     private int currentFramerate;
     private int currentTickrate;
 
-    public void registerInputListener(InputListener inputListener){
-        this.inputListenerList.add(inputListener);
-    }
-
-    public CoreGame(String title, int width, int height, int scale, int tickrate){
+    public CoreGame(String title, int width, int height, int scale, int tickrate) {
         this.title = title;
         this.width = width;
         this.height = height;
@@ -37,20 +30,18 @@ public class CoreGame implements KeyListener, MouseListener, MouseMotionListener
         this.tickrate = tickrate;
     }
 
-    public synchronized void start(){
+    public synchronized void start() {
         running = true;
         gameThread = new Thread(this::run);
         gameThread.start();
     }
 
-    public synchronized void stop(){
+    public synchronized void stop() {
         running = false;
     }
 
-    public Display display;
-
-    public void run(){
-        display = new Display(title,width,height,scale);
+    public void run() {
+        display = new Display(title, width, height, scale);
         display.getCanvas().addKeyListener(this);
         display.getCanvas().addMouseListener(this);
         display.getCanvas().addMouseMotionListener(this);
@@ -61,8 +52,7 @@ public class CoreGame implements KeyListener, MouseListener, MouseMotionListener
         double nsPerTick = 1000000000.0 / tickrate;
         long lastTime1 = System.currentTimeMillis();
         int frames = 0, ticks = 0;
-        while (running)
-        {
+        while (running) {
             long now = System.nanoTime();
             unprocessed += (now - lastTime) / nsPerTick;
             lastTime = now;
@@ -85,14 +75,17 @@ public class CoreGame implements KeyListener, MouseListener, MouseMotionListener
         }
     }
 
-    public void render(Graphics2D graphics){}
-    public void update() {}
+    public void render(Graphics2D graphics) {
+    }
+
+    public void update() {
+    }
 
     private void fixedUpdate() {
         update();
     }
 
-    private void fixedRender(){
+    private void fixedRender() {
         BufferStrategy bs = display.getCanvas().getBufferStrategy();
         if (bs == null) {
             display.getCanvas().createBufferStrategy(3);
@@ -108,6 +101,17 @@ public class CoreGame implements KeyListener, MouseListener, MouseMotionListener
 
         graphics.dispose();
         bs.show();
+    }
+
+    public void resize(int width, int height, int scale) {
+        this.width = width;
+        this.height = height;
+        this.scale = scale;
+        display.resizeDisplay(width, height, scale);
+    }
+
+    public void registerInputListener(InputListener inputListener) {
+        this.inputListenerList.add(inputListener);
     }
 
     public int getCurrentFramerate() {
@@ -140,70 +144,70 @@ public class CoreGame implements KeyListener, MouseListener, MouseMotionListener
 
     @Override
     public void keyTyped(KeyEvent e) {
-        for(InputListener inputListener: inputListenerList){
+        for (InputListener inputListener : inputListenerList) {
             inputListener.onKeyType(e);
         }
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-        for(InputListener inputListener: inputListenerList){
+        for (InputListener inputListener : inputListenerList) {
             inputListener.onKeyPress(e);
         }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        for(InputListener inputListener: inputListenerList){
+        for (InputListener inputListener : inputListenerList) {
             inputListener.onKeyRelease(e);
         }
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        for(InputListener inputListener: inputListenerList){
+        for (InputListener inputListener : inputListenerList) {
             inputListener.onMouseClick(e);
         }
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        for(InputListener inputListener: inputListenerList){
+        for (InputListener inputListener : inputListenerList) {
             inputListener.onMousePress(e);
         }
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        for(InputListener inputListener: inputListenerList){
+        for (InputListener inputListener : inputListenerList) {
             inputListener.onMouseRelease(e);
         }
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        for(InputListener inputListener: inputListenerList){
+        for (InputListener inputListener : inputListenerList) {
             inputListener.onMouseEnter(e);
         }
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-        for(InputListener inputListener: inputListenerList){
+        for (InputListener inputListener : inputListenerList) {
             inputListener.onMouseExit(e);
         }
     }
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        for(InputListener inputListener: inputListenerList){
+        for (InputListener inputListener : inputListenerList) {
             inputListener.onMouseDrag(e);
         }
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        for(InputListener inputListener: inputListenerList){
+        for (InputListener inputListener : inputListenerList) {
             inputListener.onMouseMove(e);
         }
     }
